@@ -5,11 +5,13 @@ import { ShowPropertyProps } from 'adminjs';
 const CustomShow = (props: ShowPropertyProps) => {
   const { record } = props;
   return (
-    <img
-      src={record.params.imageUrl}
-      alt={record.params.title}
-      style={{ width: '500px', height: '500px', objectFit: 'contain' }}
-    />
+    <Box width={1} flex flexDirection="column" alignItems="center" gap={2} marginBlock={24}>
+      <img
+        src={record.params.imageUrl}
+        alt={record.params.title}
+        style={{ height: '500px', objectFit: 'contain', marginInline: 'auto' }}
+      />
+    </Box>
   );
 };
 

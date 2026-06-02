@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button, Label, Input } from '@adminjs/design-system';
+import { Box, Button, Label, Input, FormGroup } from '@adminjs/design-system';
 import { BasePropertyProps } from 'adminjs';
 
 const ChangeAdminPassword = (props: BasePropertyProps) => {
-  const { onChange, where, record } = props;
-  const isEdit = record?.params.email ? true : false; // Assuming email is always present for existing records
+  const { onChange, property, record } = props;
+  const isEdit = !!record?.id;
   const [showForm, setShowForm] = useState(!isEdit);
-  const [oldPassword, setOldPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleChangePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewPassword(e.target.value);
+    const value = e.target.value;
+    setPassword(value);
+    onChange?.(property.name, e.target.value);
   };
 
   const handleChangePasswordClick = (e: React.MouseEvent) => {
@@ -24,18 +24,17 @@ const ChangeAdminPassword = (props: BasePropertyProps) => {
     e.preventDefault();
     e.stopPropagation();
     setShowForm(false);
-    setNewPassword('');
+    onChange?.(property.name, '');
   };
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (onChange) {
-        onChange('password', newPassword);
-      }
-    }, 4000);
+    if (!isEdit) {
+      setPassword(record?.params?.[property.name] || '');
+    } else {
+      setPassword('');
+    }
+  }, [record?.id]);
 
-    return () => clearTimeout(timeout);
-  }, [newPassword]);
   return (
     <Box width={1} flex flexDirection="column" alignItems="center" gap={2}>
       {showForm && (
@@ -58,20 +57,20 @@ const ChangeAdminPassword = (props: BasePropertyProps) => {
             />
           </Box> */}
 
-          <Box width={1} marginBottom={32}>
+          <FormGroup width={1} marginBottom={32}>
             <Label htmlFor="newPassword" required>
               New Password
             </Label>
             <Input
               id="newPassword"
               type="password"
-              value={newPassword}
+              value={password}
               onChange={handleChangePasswordChange}
               variant="default"
               width={1}
               required
             />
-          </Box>
+          </FormGroup>
 
           {/* // <Box width={1} marginBottom={32}>
           //   <Label htmlFor="confirmPassword">Confirm Password</Label>

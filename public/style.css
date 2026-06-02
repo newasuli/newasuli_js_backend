@@ -1,5 +1,11 @@
-img[src*="logo"] {
-  max-width: 100px !important;
+/* Sidebar logo */
+[data-css="sidebar-branding"] img {
+  max-height: 50px !important; 
+  width: auto !important;
+}
+
+/* Login page logo */
+[data-css="login-logo"] img {
   max-height: 100px !important;
-  object-fit: contain;
+  width: auto !important;
 }

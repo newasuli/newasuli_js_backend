@@ -13,6 +13,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    superAdmin: {
+        type: Boolean,
+        default: false,
+    },
     access: {
         type: String,
     }

@@ -47,9 +47,6 @@ const start = async () => {
   app.use(admin.options.rootPath, router);
   app.use(express.static('public'));
   app.use('/assets', express.static(path.join(process.cwd(), 'assets')));
-  app.use("/gallery", galleryRouter);
-  app.use('/menu', menuRouter);
-  app.use('/popup', popupRouter);
 
   app.listen(port, () => {
     console.log(`AdminJS available at http://localhost:${port}${admin.options.rootPath}`);

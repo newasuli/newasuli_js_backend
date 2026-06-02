@@ -12,9 +12,9 @@ import bcrypt from 'bcrypt';
 const provider = new DefaultAuthProvider({
   componentLoader,
   authenticate: async ({ email, password }) => {
-    if (email === DEFAULT_ADMIN.email) {
-      return { email };
-    }
+    // if (email === DEFAULT_ADMIN.email) {
+    //   return { email };
+    // }
 
     const user = await User.findOne({ email });
     
@@ -28,7 +28,7 @@ const provider = new DefaultAuthProvider({
       return null;
     }
 
-    return { email: user.email };
+    return { email: user.email, superAdmin: user.superAdmin };
   },
 });
 
